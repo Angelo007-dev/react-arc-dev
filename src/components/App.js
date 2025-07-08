@@ -2,7 +2,6 @@ import Header from "../components/ui/Header";
 import { ThemeProvider } from '@mui/material/styles';
 import theme from "../components/ui/Theme"; 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
 function App() {
   return (
 

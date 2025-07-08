@@ -12,6 +12,8 @@ import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 /*Hide AppBar on scrolling*/
 function HideOnScroll(props) {
@@ -42,6 +44,7 @@ export default function Header(props) {
     const handleChange = (event, value) => {
         setValue(value);
     }
+    const [anchorEl, setAnchorEl] = useState(null);
     useEffect =()=>{
         switch (window.location.pathname) {
             case '/':
