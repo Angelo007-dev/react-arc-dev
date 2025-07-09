@@ -1,29 +1,47 @@
 import Header from "../components/ui/Header";
-import { ThemeProvider } from '@mui/material/styles';
-import theme from "../components/ui/Theme"; 
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "../components/ui/Theme";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import CssBaseline from "@mui/material/CssBaseline";
 function App() {
   return (
-
-    
-  <ThemeProvider theme={theme}>
-   <Router>
-    <Header/>
-      <Routes>
-        
-        <Route path="/" element={<div style={{marginTop: '60px'}}>home</div>} />
-        <Route path="/sevices" element={<div style={{marginTop: '60px'}}>home</div>} />
-        <Route path="/services/customSoctware" element={<div style={{marginTop: '60px'}}>customSoctware</div>} />
-        <Route path="/services/mobileapps" element={<div style={{marginTop: '60px'}}>mobileapps</div>} />
-        <Route path="/services/website" element={<div style={{marginTop: '60px'}}>website</div>} />
-        <Route path="/revolution" element={<div style={{marginTop: '60px'}}>The Revolution</div>} />
-        <Route path="/about" element={<div style={{marginTop: '60px'}}>about</div>} />
-        <Route path="/contact" element={<div style={{marginTop: '60px'}}>contact</div>} />
-      </Routes>      
-    </Router>
-  </ThemeProvider>
-      
-   
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<div className="route-content">home</div>} />
+          <Route
+            path="/sevices"
+            element={<div className="route-content">Service</div>}
+          />
+          <Route
+            path="/services/customSoctware"
+            element={<div className="route-content">customSoctware</div>}
+          />
+          <Route
+            path="/services/mobileapps"
+            element={<div className="route-content">mobileapps</div>}
+          />
+          <Route
+            path="/services/website"
+            element={<div className="route-content">website</div>}
+          />
+          <Route
+            path="/revolution"
+            element={<div className="route-content">The Revolution</div>}
+          />
+          <Route
+            path="/about"
+            element={<div className="route-content">about</div>}
+          />
+          <Route
+            path="/contact"
+            element={<div className="route-content">contact</div>}
+          />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 
