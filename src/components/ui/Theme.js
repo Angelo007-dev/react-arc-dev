@@ -97,6 +97,16 @@ export default createTheme({
             textTransform: "none",
             height: "45px",
             color: "white",
+            [theme.breakpoints.down("lg")]: {
+              height: "30px",
+              width: "150px",
+              fontSize: ".7em",
+            },
+            [theme.breakpoints.down("md")]: {
+              height: "50px",
+              width: "150px",
+              fontSize: "12px",
+            },
 
             "&.logoButton": {
               all: "unset",
