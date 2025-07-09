@@ -10,34 +10,41 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="/" element={<div className="route-content">home</div>} />
+          <Route
+            path="/"
+            element={<div className="route-content">home page</div>}
+          />
           <Route
             path="/sevices"
-            element={<div className="route-content">Service</div>}
+            element={<div className="route-content">Service page</div>}
           />
           <Route
             path="/services/customSoctware"
-            element={<div className="route-content">customSoctware</div>}
+            element={<div className="route-content">customSoftware page</div>}
           />
           <Route
             path="/services/mobileapps"
-            element={<div className="route-content">mobileapps</div>}
+            element={<div className="route-content">mobileapps page</div>}
           />
           <Route
             path="/services/website"
-            element={<div className="route-content">website</div>}
+            element={<div className="route-content">website page</div>}
           />
           <Route
             path="/revolution"
-            element={<div className="route-content">The Revolution</div>}
+            element={<div className="route-content">The Revolution page</div>}
           />
           <Route
             path="/about"
-            element={<div className="route-content">about</div>}
+            element={<div className="route-content">about page</div>}
           />
           <Route
             path="/contact"
-            element={<div className="route-content">contact</div>}
+            element={<div className="route-content">contact page</div>}
+          />
+          <Route
+            path="/estimate"
+            element={<div className="route-content">Free estimate page</div>}
           />
         </Routes>
       </Router>

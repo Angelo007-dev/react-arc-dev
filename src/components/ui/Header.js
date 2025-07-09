@@ -20,6 +20,9 @@ import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import menuItemClasses from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
 
 /*Hide AppBar on scrolling*/
 function HideOnScroll(props) {
@@ -149,7 +152,12 @@ export default function Header(props) {
         <Tab component={Link} to="/about" label="About us" />
         <Tab component={Link} to="/contact" label="Contact us" />
       </Tabs>
-      <Button variant="contained" color="secondary">
+      <Button
+        component={Link}
+        to="/estimate"
+        variant="contained"
+        color="secondary"
+      >
         Free Estimate
       </Button>
       <Menu
@@ -180,7 +188,43 @@ export default function Header(props) {
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
       >
-        Example Drawer
+        <List>
+          <ListItem
+            component={Link}
+            to="/"
+            onClick={() => setIsDrawerOpen(false)}
+          >
+            <ListItemText disableTypography>Home</ListItemText>
+          </ListItem>
+          <ListItem
+            component={Link}
+            to="/services"
+            onClick={() => setIsDrawerOpen(false)}
+          >
+            <ListItemText disableTypography>Service</ListItemText>
+          </ListItem>
+          <ListItem
+            component={Link}
+            to="/revolution"
+            onClick={() => setIsDrawerOpen(false)}
+          >
+            <ListItemText disableTypography>The Revolution</ListItemText>
+          </ListItem>
+          <ListItem
+            component={Link}
+            to="/about"
+            onClick={() => setIsDrawerOpen(false)}
+          >
+            <ListItemText disableTypography>About Us</ListItemText>
+          </ListItem>
+          <ListItem
+            component={Link}
+            to="/contact"
+            onClick={() => setIsDrawerOpen(false)}
+          >
+            <ListItemText disableTypography>Contact Us</ListItemText>
+          </ListItem>
+        </List>
       </SwipeableDrawer>
       <IconButton
         sx={{
