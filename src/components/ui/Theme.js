@@ -1,5 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
+
 const arcBlue = '#0B72B8';
 const arcOrange = '#FFBA60';    
 export default createTheme({
@@ -22,6 +23,27 @@ export default createTheme({
         },
     },
     components: {
+        MuiMenu:{
+            styleOverrides: {
+                paper: {
+                    backgroundColor: `${arcBlue}`,
+                    color: 'white',
+                    borderRadius: '10px',
+                    marginTop: '2px',
+                    borderRadius: '0px',
+                },
+            },  
+        },
+        MuiMenuItem:{
+            styleOverrides: {
+                root:{
+                        opacity: 0.7,
+                        "&:hover":{
+                    opacity: 1
+                    }   
+                }
+            }
+        },
         MuiTabs: {
             styleOverrides: {
                 root: {
@@ -57,6 +79,4 @@ export default createTheme({
             },
         },
     }
-    
-    
 })

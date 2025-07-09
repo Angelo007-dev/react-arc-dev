@@ -12,11 +12,11 @@ function App() {
       <Routes>
         
         <Route path="/" element={<div style={{marginTop: '60px'}}>home</div>} />
-        <Route path="/customSoctware" element={<div style={{marginTop: '60px'}}>customSoctware</div>} />
-        <Route path="/mobileapps" element={<div style={{marginTop: '60px'}}>mobileapps</div>} />
-        <Route path="/website" element={<div style={{marginTop: '60px'}}>website</div>} />
-        <Route path="/service" element={<div style={{marginTop: '60px'}}>service</div>} />
-        <Route path="/revolution" element={<div style={{marginTop: '60px'}}>Horevolutionme</div>} />
+        <Route path="/sevices" element={<div style={{marginTop: '60px'}}>home</div>} />
+        <Route path="/services/customSoctware" element={<div style={{marginTop: '60px'}}>customSoctware</div>} />
+        <Route path="/services/mobileapps" element={<div style={{marginTop: '60px'}}>mobileapps</div>} />
+        <Route path="/services/website" element={<div style={{marginTop: '60px'}}>website</div>} />
+        <Route path="/revolution" element={<div style={{marginTop: '60px'}}>The Revolution</div>} />
         <Route path="/about" element={<div style={{marginTop: '60px'}}>about</div>} />
         <Route path="/contact" element={<div style={{marginTop: '60px'}}>contact</div>} />
       </Routes>      
