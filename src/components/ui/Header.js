@@ -17,12 +17,15 @@ import MenuItem from "@mui/material/MenuItem";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import menuItemClasses from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import ListItemButton from "@mui/material/ListItemButton";
+import Collapse from "@mui/material/Collapse";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import { useLocation } from "react-router-dom";
 
 /*Hide AppBar on scrolling*/
 function HideOnScroll(props) {
@@ -48,6 +51,8 @@ HideOnScroll.propTypes = {
 /* Tabs navigation for the app bar */
 
 export default function Header(props) {
+  const location = useLocation();
+  const currentPath = location.pathname;
   const theme = useTheme();
   const iOS =
     typeof navigator !== "undefined" &&
@@ -59,7 +64,54 @@ export default function Header(props) {
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [openListItemButton, setOpenListItemButton] = useState(true);
 
+  /* style  */
+  const selectedDrawerItemStyle = {
+    "&.Mui-selected": {
+      backgroundColor: theme.palette.primary.dark,
+      color: "#fff",
+    },
+    "&.Mui-selected:hover": {
+      backgroundColor: theme.palette.primary.main,
+    },
+  };
+  const drawerStyle = {
+    top: 64,
+    height: "calc(100% - 64px)",
+  };
+  /** render for button */
+  const renderDrawerButton = (to, label) => (
+    <ListItemButton
+      className="drawerItem"
+      component={Link}
+      to={to}
+      selected={currentPath === to}
+      onClick={() => setIsDrawerOpen(false)}
+      sx={selectedDrawerItemStyle}
+      divider
+    >
+      <ListItemText disableTypography>{label}</ListItemText>
+    </ListItemButton>
+  );
+  const renderDrawerButtonFreeEstimate = (to, label) => (
+    <ListItemButton
+      className="drawerItem free-estimate"
+      component={Link}
+      to={to}
+      selected={currentPath === to}
+      onClick={() => setIsDrawerOpen(false)}
+      sx={selectedDrawerItemStyle}
+      divider
+    >
+      <ListItemText disableTypography>{label}</ListItemText>
+    </ListItemButton>
+  );
+  /*handler  */
+  //listItemButotn
+  const handleListItemButton = () => {
+    setOpenListItemButton(!openListItemButton);
+  };
   /*const toggleDrawer = (open) => (event) => {
     setIsDrawerOpen(open);
   };*/
@@ -67,10 +119,13 @@ export default function Header(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
     setOpenMenu(true);
   };
+
+  //menuItme
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setAnchorEl(null);
@@ -86,51 +141,30 @@ export default function Header(props) {
     { name: "Mobile App Development", link: "/services/mobileapps" },
     { name: "Website Development", link: "/services/website" },
   ];
+
+  const listItmeOptions = [
+    { name: "Custom Software Development", link: "/services/customSoftware" },
+    { name: "Mobile App Development", link: "/services/mobileapps" },
+    { name: "Website Development", link: "/services/website" },
+  ];
+  const routeToTab = {
+    "/": 0,
+    "/services": 1,
+    "/services/customSoftware": 1,
+    "/services/mobileapps": 1,
+    "/services/website": 1,
+    "/revolution": 2,
+    "/about": 3,
+    "/contact": 4,
+  };
+
   useEffect(() => {
-    const handlePathChange = (path) => {
-      switch (path) {
-        case "/":
-          if (value !== 0) setValue(0);
-          break;
-        case "/services":
-          if (value !== 1) {
-            setValue(1);
-            setSelectedIndex(0);
-          }
-          break;
-        case "/services/customSoctware":
-          if (value !== 1) {
-            setValue(1);
-            setSelectedIndex(1);
-          }
-          break;
-        case "/services/mobileapps":
-          if (value !== 1) {
-            setValue(1);
-            setSelectedIndex(2);
-          }
-          break;
-        case "/services/website":
-          if (value !== 1) {
-            setValue(1);
-            setSelectedIndex(3);
-          }
-          break;
-        case "/revolution":
-          if (value !== 2) setValue(2);
-          break;
-        case "/about":
-          if (value !== 3) setValue(3);
-          break;
-        case "/contact":
-          if (value !== 4) setValue(4);
-          break;
-        default:
-          break;
-      }
-    };
-    handlePathChange(window.location.pathname);
-  }, [value]);
+    const tabIndex = routeToTab[currentPath];
+    if (tabIndex !== undefined && value !== tabIndex) {
+      setValue(tabIndex);
+    }
+  }, [currentPath, value]);
+
   const tabs = (
     <React.Fragment>
       <Tabs
@@ -153,6 +187,7 @@ export default function Header(props) {
         <Tab component={Link} to="/contact" label="Contact us" />
       </Tabs>
       <Button
+        className="free-estimate"
         component={Link}
         to="/estimate"
         variant="contained"
@@ -170,9 +205,21 @@ export default function Header(props) {
           <MenuItem
             component={Link}
             to={option.link}
-            onClick={(e) => handleMenuItemClick(e, index)}
+            onClick={(e) => {
+              handleMenuItemClick(e, index);
+              setOpenListItemButton(!openListItemButton);
+            }}
             key={option.name}
-            selected={index === selectedIndex}
+            selected={currentPath === option.link}
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: theme.palette.primary.main,
+                color: "#fff",
+              },
+              "&.Mui-selected:hover": {
+                backgroundColor: theme.palette.primary.dark,
+              },
+            }}
           >
             {option.name}
           </MenuItem>
@@ -187,43 +234,51 @@ export default function Header(props) {
         disableDiscovery={iOS}
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
+        className="drawer"
+        sx={{
+          "& .MuiDrawer-paper": {
+            top: matches ? 118 : 118,
+            height: matches ? "calc(100% - 118px)" : "calc(100% - 118px)",
+          },
+        }}
       >
-        <List>
-          <ListItem
-            component={Link}
-            to="/"
-            onClick={() => setIsDrawerOpen(false)}
+        <List onClose={handleClose} component="nav" disablePadding>
+          {renderDrawerButton("/", "Home")}
+          <ListItemButton
+            aria-controls="services-collapse"
+            className="drawerItem"
+            divider
+            onClick={handleListItemButton}
           >
-            <ListItemText disableTypography>Home</ListItemText>
-          </ListItem>
-          <ListItem
-            component={Link}
-            to="/services"
-            onClick={() => setIsDrawerOpen(false)}
+            <ListItemText disableTypography>Services</ListItemText>
+            {openListItemButton ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse
+            id="service-collapse"
+            in={!openListItemButton}
+            timeout="auto"
+            unmountOnExit
           >
-            <ListItemText disableTypography>Service</ListItemText>
-          </ListItem>
-          <ListItem
-            component={Link}
-            to="/revolution"
-            onClick={() => setIsDrawerOpen(false)}
-          >
-            <ListItemText disableTypography>The Revolution</ListItemText>
-          </ListItem>
-          <ListItem
-            component={Link}
-            to="/about"
-            onClick={() => setIsDrawerOpen(false)}
-          >
-            <ListItemText disableTypography>About Us</ListItemText>
-          </ListItem>
-          <ListItem
-            component={Link}
-            to="/contact"
-            onClick={() => setIsDrawerOpen(false)}
-          >
-            <ListItemText disableTypography>Contact Us</ListItemText>
-          </ListItem>
+            {listItmeOptions.map((option, index) => (
+              <ListItemButton
+                key={option.name || option.link}
+                component={Link}
+                to={option.link}
+                selected={currentPath === option.link}
+                sx={selectedDrawerItemStyle}
+                onClick={() => {
+                  setIsDrawerOpen(false);
+                  setOpenListItemButton(!openListItemButton);
+                }}
+              >
+                {option.name}
+              </ListItemButton>
+            ))}
+          </Collapse>
+          {renderDrawerButton("/revolution", "The Revolution")}
+          {renderDrawerButton("/about", "About Us")}
+          {renderDrawerButton("/contact", "Contact Us")}
+          {renderDrawerButtonFreeEstimate("/estimate", "Free Estimate")}
         </List>
       </SwipeableDrawer>
       <IconButton
@@ -265,7 +320,6 @@ export default function Header(props) {
           </Toolbar>
         </AppBar>
       </HideOnScroll>
-      <Toolbar />
     </React.Fragment>
   );
 }

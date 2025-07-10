@@ -2,6 +2,12 @@ import { createTheme } from "@mui/material/styles";
 
 const arcBlue = "#0B72B8";
 const arcOrange = "#FFBA60";
+
+const rightAlignedStyle = {
+  marginLeft: "auto",
+  marginRight: "25px",
+};
+
 export default createTheme({
   palette: {
     common: {
@@ -21,6 +27,14 @@ export default createTheme({
     },
   },
   components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          zIndex: theme.zIndex.modal + 1,
+        }),
+      },
+    },
+
     MuiCssBaseline: {
       styleOverrides: (theme) => ({
         ".route-content": {
@@ -34,16 +48,18 @@ export default createTheme({
         },
       }),
     },
-    MuiPaper: {
+
+    /*MuiPaper: {
       styleOverrides: {
         root: {
           backgroundColor: `${arcBlue}`,
           borderRadius: "0px",
           boxShadow: "none",
           marginBottom: "3em",
+          width: "270px",
         },
       },
-    },
+    },*/
     MuiMenu: {
       styleOverrides: {
         paper: {
@@ -67,8 +83,7 @@ export default createTheme({
     MuiTabs: {
       styleOverrides: {
         root: {
-          marginLeft: "auto",
-          marginRight: "25px",
+          ...rightAlignedStyle,
         },
       },
     },
@@ -81,6 +96,53 @@ export default createTheme({
           fontWeight: 700,
           fontSize: "1rem",
           marginLeft: "25px",
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: (themeParam) => {
+          const theme = themeParam.theme || themeParam;
+          return {
+            backgroundColor: `${arcBlue}`,
+            borderRadius: "0px",
+            boxShadow: "none",
+            marginBottom: "3em",
+            width: "270px",
+            "&.MuiDrawer-paper": {
+              [theme.breakpoints.down("md")]: {
+                //height: "auto",
+              },
+              [theme.breakpoints.down("sm")]: {
+                top: "94px",
+                //height: "auto",
+              },
+            },
+          };
+        },
+      },
+    },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: ({ ownerState, theme }) => {
+          const className = ownerState.className || "";
+
+          return {
+            ...(className.includes("drawerItem") && {
+              //...rightAlignedStyle,
+              color: "white",
+            }),
+
+            ...(className.includes("drawerItem") &&
+              className.includes("free-estimate") && {
+                backgroundColor: `${arcOrange}`,
+                color: "white",
+                fontWeight: "bold",
+                "&:hover": {
+                  backgroundColor: theme.palette.secondary.dark,
+                },
+              }),
+          };
         },
       },
     },

@@ -15,11 +15,7 @@ function App() {
             element={<div className="route-content">home page</div>}
           />
           <Route
-            path="/sevices"
-            element={<div className="route-content">Service page</div>}
-          />
-          <Route
-            path="/services/customSoctware"
+            path="/services/customSoftware"
             element={<div className="route-content">customSoftware page</div>}
           />
           <Route
