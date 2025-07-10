@@ -110,18 +110,21 @@ export default createTheme({
             marginBottom: "3em",
             width: "270px",
             "&.MuiDrawer-paper": {
-              [theme.breakpoints.down("md")]: {
+              /*[theme.breakpoints.down("md")]: {
+                top: "119px",
                 //height: "auto",
-              },
+              },*/
               [theme.breakpoints.down("sm")]: {
                 top: "94px",
-                //height: "auto",
+                width: "200px",
+                fontSize: "0.8em",
               },
             },
           };
         },
       },
     },
+
     MuiListItemButton: {
       styleOverrides: {
         root: ({ ownerState, theme }) => {
@@ -143,6 +146,13 @@ export default createTheme({
                 },
               }),
           };
+        },
+      },
+    },
+    MuiListItemText: {
+      styleOverrides: {
+        root: ({ theme }) => {
+          return {};
         },
       },
     },
